@@ -6,8 +6,8 @@ import PostEditForm from './components/PostEditForm'
 
 function App() {
   const [posts, setPosts] = useState([
-    { id: 1, title: 'Первый пост', content: 'Содержимое первого поста', createdAt: '2024-01-15' },
-    { id: 2, title: 'Второй пост', content: 'Содержимое второго поста', createdAt: '2024-01-16' }
+    { id: 1, title: 'Добро пожаловать в Pastebin', content: 'Это ваш первый пост! Здесь вы можете создавать и делиться текстовыми заметками. Редактируйте этот пост или создайте новый.', createdAt: '2024-01-15' },
+    { id: 2, title: 'Советы по использованию', content: 'Используйте кнопку редактирования для изменения постов. Кнопка удаления поможет очистить ненужные записи. В профиле можно изменить свои данные.', createdAt: '2024-01-16' }
   ])
   
   const [editingPost, setEditingPost] = useState(null)
@@ -54,22 +54,30 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">Pastebin</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg">📝</span>
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Pastebin
+            </h1>
+          </div>
           <button
             onClick={() => setShowUserProfile(!showUserProfile)}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-md transition-colors"
+            className="flex items-center space-x-2 px-5 py-2.5 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200 border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-md"
           >
-            👤 {user.nickname}
+            <span className="text-lg">👤</span>
+            <span className="font-medium">{user.nickname}</span>
           </button>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-6 py-10">
         {showUserProfile && (
-          <div className="mb-8">
+          <div className="mb-10 animate-in slide-in-from-top duration-300">
             <UserProfileForm
               user={user}
               onSave={handleUpdateProfile}
@@ -79,7 +87,7 @@ function App() {
         )}
 
         {editingPost && (
-          <div className="mb-8">
+          <div className="mb-10 animate-in slide-in-from-top duration-300">
             <PostEditForm
               post={editingPost}
               onSave={handleSavePost}
@@ -88,14 +96,14 @@ function App() {
           </div>
         )}
 
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2">
           <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Создать новый пост</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center"><span className="mr-3">✨</span>Создать новый пост</h2>
             <NewPostForm onSubmit={handleCreatePost} />
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">Мои посты</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center"><span className="mr-3">📚</span>Мои посты</h2>
             <PostList
               posts={posts}
               onEdit={handleEditPost}
